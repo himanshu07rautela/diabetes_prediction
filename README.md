@@ -1,0 +1,88 @@
+# Diabetes Prediction Tool
+
+## Overview
+
+This repository contains a machine learning model for predicting diabetes risk based on various health metrics. The model has been developed using XGBoost, an advanced boosting technique, and optimized using hyperparameter tuning. The final model is saved in a pickle file for deployment and further use.
+
+## Dataset
+
+The dataset used for this project contains information on various health metrics and their association with diabetes. The dataset includes the following columns:
+
+- `gender`: Gender of the individual (binary encoded).
+- `age`: Age of the individual.
+- `hypertension`: Whether the individual has hypertension (1 for yes, 0 for no).
+- `heart_disease`: Whether the individual has heart disease (1 for yes, 0 for no).
+- `bmi`: Body Mass Index (BMI) of the individual.
+- `HbA1c_level`: HbA1c level (a measure of blood glucose control).
+- `blood_glucose_level`: Blood glucose level.
+- `diabetes`: Target variable indicating whether the individual has diabetes (1 for yes, 0 for no).
+- `smoking_history_current`: Whether the individual is currently smoking (boolean).
+- `smoking_history_ever`: Whether the individual has ever smoked (boolean).
+- `smoking_history_former`: Whether the individual was a former smoker (boolean).
+- `smoking_history_never`: Whether the individual has never smoked (boolean).
+- `smoking_history_not current`: Whether the individual is not currently smoking (boolean).
+
+### Data Preprocessing
+
+1. **Missing Values**: Rows with missing values in the `gender` column were dropped.
+2. **Encoding**: Binary variables were label encoded, and categorical variables were one-hot encoded.
+3. **Scaling**: Features were scaled for model training.
+
+## Model
+
+### XGBoost Classifier
+
+The XGBoost model was chosen for its efficiency and ability to handle unbalanced datasets. The following steps were performed:
+
+1. **Initial Model Training**: An XGBoost model was trained on the dataset to establish a baseline performance.
+2. **SMOTE Application**: The Synthetic Minority Over-sampling Technique (SMOTE) was used to address class imbalance by oversampling the minority class in the training data.
+3. **Hyperparameter Tuning**: Grid Search was used to find the best hyperparameters for the XGBoost model.
+
+### Best Model Parameters
+
+- `learning_rate`: 0.1
+- `max_depth`: 3
+- `n_estimators`: 200
+
+### Model Evaluation
+
+**Without SMOTE**:
+- **Accuracy**: 97%
+- **Precision for Class 0**: 0.97
+- **Precision for Class 1**: 0.96
+- **Recall for Class 0**: 1.00
+- **Recall for Class 1**: 0.70
+- **F1-Score for Class 1**: 0.81
+
+**With SMOTE**:
+- **Accuracy**: 97%
+- **Precision for Class 0**: 0.97
+- **Precision for Class 1**: 0.90
+- **Recall for Class 0**: 0.99
+- **Recall for Class 1**: 0.71
+- **F1-Score for Class 1**: 0.80
+
+**Best Model**:
+- **Precision for Class 0**: 0.97
+- **Precision for Class 1**: 0.99
+- **Recall for Class 0**: 1.00
+- **Recall for Class 1**: 0.68
+- **F1-Score for Class 1**: 0.81
+
+## Files
+
+### `diabetes_prediction.ipynb`
+This Jupyter Notebook contains:
+- **Data Loading**: Code to load and preprocess the dataset.
+- **Exploratory Data Analysis**: Visualizations and insights from the dataset.
+- **Model Training**: Implementation of the XGBoost classifier, SMOTE application, and hyperparameter tuning.
+- **Evaluation**: Performance metrics and confusion matrix for the trained model.
+
+### `xgb_best_model.pkl`
+This file contains the serialized version of the best XGBoost model obtained after hyperparameter tuning. This model can be loaded and used for making predictions on new data.
+
+## Usage
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/himanshu07rautela/diabetes_prediction.git
